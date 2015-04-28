@@ -1,43 +1,28 @@
 package com.jarninfang.studyapp;
 
-import android.content.Intent;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.TextView;
 
 
-public class LoginActivity extends ActionBarActivity {
-
-    AutoCompleteTextView emailTextView;
-    TextView passwordTextView;
-    Button signInButton;
-    Button registerButton;
+public class LoginActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailTextView = (AutoCompleteTextView) findViewById(R.id.email);
+        FragmentManager fm = getFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
-        passwordTextView = (TextView) findViewById(R.id.password);
-
-        signInButton = (Button) findViewById(R.id.email_sign_in_button);
-
-        registerButton = (Button) findViewById(R.id.email_register_button);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(i);
-            }
-        });
-
+        if(fragment == null) {
+            fragment = new LoginFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragmentContainer, fragment).commit();
+        }
     }
 
     @Override
