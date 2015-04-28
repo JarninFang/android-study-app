@@ -1,19 +1,44 @@
 package com.jarninfang.studyapp;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class LoginActivity extends ActionBarActivity {
+
+    AutoCompleteTextView emailTextView;
+    TextView passwordTextView;
+    Button signInButton;
+    Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
 
+        emailTextView = (AutoCompleteTextView) findViewById(R.id.email);
+
+        passwordTextView = (TextView) findViewById(R.id.password);
+
+        signInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        registerButton = (Button) findViewById(R.id.email_register_button);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
