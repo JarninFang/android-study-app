@@ -4,6 +4,6 @@
              android:layout_height="match_parent"
              tools:context=".LoginActivity"
              android:background="@drawable/login_background"
-             android:id="@+id/fragmentContainer">
+    android:id="@+id/fragmentContainer">
 
 </FrameLayout>

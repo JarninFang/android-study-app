@@ -41,9 +41,12 @@ public class LoginFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Start RegisterActivity
-                Intent i = new Intent(getActivity(), RegisterActivity.class);
-                startActivity(i);
+                //Start RegisterFragment
+                RegisterFragment regFrag = new RegisterFragment();
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, regFrag)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
