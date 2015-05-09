@@ -17,4 +17,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_register">Register</string>
+    <string name="passwords_dont_match">The passwords do not match.</string>
+    <string name="fill_in_fields">Please fill in all fields.</string>
+    <string name="URL_JSON">https://dry-dawn-8666.herokuapp.com/</string>
 </resources>

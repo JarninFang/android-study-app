@@ -36,6 +36,13 @@ public class LoginFragment extends Fragment {
         passwordTextView = (TextView) v.findViewById(R.id.password);
 
         signInButton = (Button) v.findViewById(R.id.email_sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = emailTextView.getText() + "";
+                String password = passwordTextView.getText() + "";
+            }
+        });
 
         registerButton = (Button) v.findViewById(R.id.email_register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +56,7 @@ public class LoginFragment extends Fragment {
                         .commit();
             }
         });
+
 
         return v;
     }
