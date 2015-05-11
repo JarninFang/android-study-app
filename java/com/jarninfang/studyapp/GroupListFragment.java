@@ -21,7 +21,7 @@ public class GroupListFragment extends ListFragment {
                               Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_group_list, parent, false);
-        
+
         return v;
     }
 }
