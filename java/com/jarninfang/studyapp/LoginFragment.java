@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Jarnin Fang on 4/28/2015.
@@ -47,7 +48,14 @@ public class LoginFragment extends Fragment {
                 Log.d("email ", email);
                 Log.d("password ", password);
                 Login login = new Login(email, password);
-                if(true/*CHANGE THIS LATER*/) {
+
+                //Check if AttemptLogin is done every 100 milliseconds
+                while(!login.finished) {
+                    try { Thread.sleep(100); }
+                    catch (InterruptedException e) { e.printStackTrace(); }
+                }
+
+                if(login.success == 1) {
                     user = login.getUser();
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -55,6 +63,11 @@ public class LoginFragment extends Fragment {
                     intent.putExtra("User", (Parcelable) user);
                     startActivity(intent);
 
+                }
+
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            R.string.not_valid_user_pass, Toast.LENGTH_SHORT).show();
                 }
             }
         });

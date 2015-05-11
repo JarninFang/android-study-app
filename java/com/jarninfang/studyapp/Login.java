@@ -1,5 +1,6 @@
 package com.jarninfang.studyapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -33,6 +34,8 @@ public class Login {
     private static final String TAG_MESSAGE = "message";
     User user;
     String userjson;
+    Integer success = 0;
+    boolean finished = false;
 
     private static final String LOGIN_URL =
             "https://dry-dawn-8666.herokuapp.com/login_user";
@@ -42,12 +45,6 @@ public class Login {
         new AttemptLogin().execute();
     }
     class AttemptLogin extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
 
         @Override
         protected String doInBackground(String... args) {
@@ -81,6 +78,12 @@ public class Login {
                 //Convert inputstream to string
                 if(inputStream != null) {
                     result = convertInputStreamToString(inputStream);
+                    Log.d("Inputstream ", inputStream.toString());
+                    Log.d("result ", result);
+                    success = Integer.parseInt(result);
+                    Log.d("success ", success.toString());
+                    //Set finished = true so LoginFragment can check for the return value
+                    finished = true;
                 }
 
                 else {
@@ -90,12 +93,8 @@ public class Login {
                 Log.d("InputStream", e.getLocalizedMessage());
             }
 
+
             return result;
-        }
-
-        @Override
-        protected void onPostExecute(String file_url) {
-
         }
     }
 
