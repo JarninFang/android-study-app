@@ -32,7 +32,6 @@ public class Register {
     public Register(User user) {
         this.user = user;
         new HttpAsyncTask().execute(REGISTER_URL);
-
     }
 
     public static String POST( String url, User user) {

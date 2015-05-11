@@ -17,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"
+            android:label="StudyApp"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

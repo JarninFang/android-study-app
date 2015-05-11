@@ -1,12 +1,22 @@
 package com.jarninfang.studyapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by jarnin on 5/10/15.
+ * Class that holds User information
+ * Implements Parcelable so we can transfer the User object between
+ * Activities and Fragments
  */
-public class User {
+public class User implements Parcelable{
+
+    public List<User> results;
 
     @Expose
     private String email;
@@ -102,6 +112,48 @@ public class User {
         this.description = "";
     }
 
+    //Implementing abstract Parcelable methods
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    //Write the User's data to the passed-in parcel
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(name);
+        dest.writeInt(age);
+        dest.writeString(school);
+        dest.writeString(description);
+        dest.writeStringArray(courses);
+    }
 
+    //Used to regenerate the object. All Parcelables must have a CREATOR
+    //that implements these two methods
+    public static final Parcelable.Creator<User> CREATOR =
+            new Parcelable.Creator<User>() {
+
+                @Override
+                public User createFromParcel(Parcel source) {
+                    return new User(source);
+                }
+
+                @Override
+                public User[] newArray(int size) {
+                    return new User[0];
+                }
+            };
+
+    //Constructor that takes a parcel
+    private User(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        name = in.readString();
+        age = in.readInt();
+        school = in.readString();
+        description = in.readString();
+        courses = in.createStringArray();
+    }
 }

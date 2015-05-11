@@ -3,6 +3,8 @@ package com.jarninfang.studyapp;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ public class LoginFragment extends Fragment {
     TextView passwordTextView;
     Button signInButton;
     Button registerButton;
+    User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,18 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = emailTextView.getText() + "";
                 String password = passwordTextView.getText() + "";
+                Log.d("email ", email);
+                Log.d("password ", password);
+                Login login = new Login(email, password);
+                if(true/*CHANGE THIS LATER*/) {
+                    user = login.getUser();
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    //Put Parcel User into intent extra
+                    intent.putExtra("User", (Parcelable) user);
+                    startActivity(intent);
+
+                }
             }
         });
 
