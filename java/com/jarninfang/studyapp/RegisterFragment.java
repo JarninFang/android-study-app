@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -66,6 +69,11 @@ public class RegisterFragment extends Fragment {
 
                 /*Condition to create a new user */
                 else if( password.equals(cPassword)) {
+                    /* Initializes a new User object */
+                    User user = new User(email, password);
+
+                    /* Register the user */
+                    Register register = new Register(user);
 
                 }
 
