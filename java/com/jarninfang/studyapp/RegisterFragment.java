@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -63,9 +66,15 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),
                             R.string.fill_in_fields, Toast.LENGTH_SHORT).show();
                 }
+
+                /*Condition to create a new user */
                 else if( password.equals(cPassword)) {
-                    Networking n = new Networking();
-                    n.execute("https://dry-dawn-8666.herokuapp.com/create_user", Networking.NETWORK_STATE_REGISTER);
+                    /* Initializes a new User object */
+                    User user = new User(email, password);
+
+                    /* Register the user */
+                    Register register = new Register(user);
+
                 }
 
                 else  {
@@ -76,70 +85,6 @@ public class RegisterFragment extends Fragment {
         });
 
         return v;
-    }
-
-    public class Networking extends AsyncTask {
-        public static final int NETWORK_STATE_REGISTER = 1;
-        @Override
-        protected Object doInBackground(Object[] params) {
-            getJson(params[0], (int)params[1]);
-            return null;
-        }
-    }
-
-    private void getJson( String url, int state ) {
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost request = new HttpPost(url);
-
-        List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-
-        boolean valid = false;
-
-        switch (state) {
-            case Networking.NETWORK_STATE_REGISTER:
-                postParameters.add(new BasicNameValuePair("email", email));
-                postParameters.add(new BasicNameValuePair("password", password));
-                String s = " { \"email\":" + email + ", \"password\":" + password+"}";
-                valid = true;
-                break;
-            default:
-                Log.d("State", "Unknown State");
-        }
-
-        if(valid) {
-            StringBuffer stringBuffer = new StringBuffer("");
-            BufferedReader bufferedReader = null;
-            try {
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters);
-                request.setEntity(entity);
-                HttpResponse response = httpClient.execute(request);
-
-                bufferedReader = new BufferedReader
-                        (new InputStreamReader(response.getEntity().getContent()));
-
-                String line = " ";
-                String LineSeparator = System.getProperty("line.separator");
-                while((line = bufferedReader.readLine()) != null) {
-                    stringBuffer.append(line + LineSeparator);
-                }
-
-                bufferedReader.close();
-
-
-
-            } catch (Exception e) {
-                Log.d("error", e.getMessage());
-                e.printStackTrace();
-            }
-
-            Log.d("result", "result" + stringBuffer);
-
-        }
-
-        else {
-            Log.d("NotValid", "Not valid");
-        }
-
     }
 
 }

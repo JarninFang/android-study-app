@@ -20,4 +20,5 @@
     <string name="passwords_dont_match">The passwords do not match.</string>
     <string name="fill_in_fields">Please fill in all fields.</string>
     <string name="URL_JSON">https://dry-dawn-8666.herokuapp.com/</string>
+    <string name="not_valid_user_pass">Not a valid username or password</string>
 </resources>
