@@ -23,9 +23,13 @@ public class MainActivity extends ActionBarActivity {
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.mainFragmentContainer);
 
-        /*if(fragment == null) {
-            fragment =
-        }*/
+        if(fragment == null) {
+            fragment = new GroupListFragment();
+        }
+
+        fm.beginTransaction()
+                .add(R.id.fragmentGroupList, fragment)
+                .commit();
 
 
         //USED TO TEST LOGIN

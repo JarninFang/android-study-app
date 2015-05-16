@@ -6,14 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 /**
  * Created by jarnin on 5/10/15.
  */
 public class GroupListFragment extends ListFragment {
 
+    private ArrayList<Group> groups;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle("Groups");
+
     }
 
     @Override

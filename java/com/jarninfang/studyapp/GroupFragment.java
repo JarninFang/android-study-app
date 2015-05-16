@@ -12,6 +12,9 @@ import android.view.ViewGroup;
  */
 public class GroupFragment extends Fragment {
 
+    private Group group;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

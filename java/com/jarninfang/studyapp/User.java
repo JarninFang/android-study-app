@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,18 +84,33 @@ public class User implements Parcelable{
     }
 
     @Expose
-    public String[] courses = new String[8]; // Max 8 classes
-    public String[] getCourses() {
+    public ArrayList<Course> courses;
+    public ArrayList<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(String[] courses) {
+    public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 
+    @Expose
+    public ArrayList<Group> groups;
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    public void addToGroup( Group group ) {
+        groups.add(group);
+    }
 
     public User(String email, String password, String name, int age,
-                String school, String description, String[] courses) {
+                String school, String description, ArrayList<Course> courses,
+                ArrayList<Group> groups) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -101,6 +118,7 @@ public class User implements Parcelable{
         this.school = school;
         this.description = description;
         this.courses = courses;
+        this.groups = groups;
     }
 
     public User(String email, String password) {
@@ -127,7 +145,8 @@ public class User implements Parcelable{
         dest.writeInt(age);
         dest.writeString(school);
         dest.writeString(description);
-        dest.writeStringArray(courses);
+        dest.writeTypedList(courses);
+        dest.writeTypedList(groups);
     }
 
     //Used to regenerate the object. All Parcelables must have a CREATOR
@@ -154,6 +173,8 @@ public class User implements Parcelable{
         age = in.readInt();
         school = in.readString();
         description = in.readString();
-        courses = in.createStringArray();
+        courses = new ArrayList<Course>();
+        in.readTypedList(courses, Course.CREATOR);
+        in.readTypedList(groups, Group.CREATOR);
     }
 }
