@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".LoginActivity"
-             android:background="@drawable/login_background"
+             android:background="@drawable/bookstack"
     android:id="@+id/fragmentContainer">
 
 </FrameLayout>
